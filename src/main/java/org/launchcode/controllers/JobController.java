@@ -47,10 +47,10 @@ public class JobController {
         // new Job and add it to the jobData data store. Then
         // redirect to the job detail view for the new Job.
 
+
         if (errors.hasErrors()) {
             return "new-job";
         }
-
         String jobName = jobForm.getName();
         Employer jobEmp = jobData.getEmployers().findById(jobForm.getEmployerId());
         Location jobLoc = jobData.getLocations().findById(jobForm.getLocationId());

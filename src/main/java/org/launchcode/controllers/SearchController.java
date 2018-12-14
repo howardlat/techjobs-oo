@@ -27,10 +27,10 @@ public class SearchController {
     }
 
     @RequestMapping(value = "results")
-    public String search(Model model,
-                         @ModelAttribute SearchForm searchForm) {
+    public String search(Model model, @ModelAttribute SearchForm searchForm) {
 
         ArrayList<Job> jobs;
+
 
         if (searchForm.getSearchField().equals(JobFieldType.ALL)) {
             jobs = jobData.findByValue(searchForm.getKeyword());
@@ -38,9 +38,14 @@ public class SearchController {
             jobs = jobData.findByColumnAndValue(searchForm.getSearchField(), searchForm.getKeyword());
         }
 
-        model.addAttribute("jobs", jobs);
+        if (jobs.size() == 0) {
+            return "noresults";
 
-        return "search";
+        } else {
+            model.addAttribute("jobs", jobs);
+
+            return "search";
+        }
     }
 
 }
